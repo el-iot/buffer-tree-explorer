@@ -1,0 +1,3 @@
+function! explorer#Explore()
+
+endfunction

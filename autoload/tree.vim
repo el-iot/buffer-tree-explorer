@@ -2,23 +2,25 @@ let s:hidden_sep = "|||"
 
 echohl None
 
-function! GetTree(buffer_numbers)
+function! GetTree()
 
+  let buffer_numbers = map(filter(copy(getbufinfo()), 'v:val.listed'), 'v:val.bufnr')
   let tree = {}
 
-  for buffer_number in a:buffer_numbers
+  for buffer_number in buffer_numbers
 
     let file_path = split(expand("#" . string(buffer_number) . ":p"), g:buffertree_path_sep)
     let dir = tree
+
     for step in file_path
 
-      " check if this is the end
       if len(file_path) == 1
         let dir[step] = buffer_number
       else
         if !has_key(dir, step)
           let dir[step] = {}
         endif
+
         let dir = dir[step]
       endif
 
@@ -26,6 +28,10 @@ function! GetTree(buffer_numbers)
 
     endfor
   endfor
+
+  if g:buffertree_compress == 1
+    let tree = CompressTree(tree)
+  endif
 
   return tree
 endfunction
@@ -118,31 +124,25 @@ function! CompressTree(tree)
 
 endfunction
 
-function! tree#BufferTree()
+function! RenderTree(tree)
 
-  let buffer_numbers = map(filter(copy(getbufinfo()), 'v:val.listed'), 'v:val.bufnr')
-  let tree = GetTree(buffer_numbers)
-
-  if g:buffertree_compress == 1
-    let tree = CompressTree(tree)
-  endif
-
-  let lines = GetLines(tree)
+  let lines = GetLines(a:tree)
 
   for line in lines
-
     if stridx(line, s:hidden_sep) != -1
       let sections = split(line, s:hidden_sep)
       echo sections[0]
       echohl BufferTreeFile
       echon sections[1]
       echohl None
-
     else
       echo line
 
     endif
-
   endfor
+endfunction
 
+function! tree#BufferTree()
+  let tree = GetTree(buffer_numbers)
+  call RenderTree(tree)
 endfunction
