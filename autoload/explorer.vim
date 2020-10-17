@@ -30,6 +30,18 @@ function! ScrollHelper(delta)
   endfor
 endfunction
 
+function! RefreshBuffer()
+
+  let s:previous_window = winnr()
+  let previous_buffer = bufnr()
+
+  let tree = tree#BufferTree()
+  let result = buffer#RefreshBuffer(tree, previous_buffer)
+  let b:allowed_lines = result[1]
+
+  call cursor(result[0], 0)
+endfunction
+
 function! explorer#Explore()
 
   let s:previous_window = winnr()
@@ -47,8 +59,9 @@ function! explorer#Explore()
 
   augroup CursorLine
     au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
+    au VimEnter,WinEnter,BufWinEnter BufferTree setlocal cursorline
+    au VimEnter,WinEnter,BufWinEnter BufferTree call RefreshBuffer()
+    au WinLeave BufferTree setlocal nocursorline
   augroup END
 
 endfunction
