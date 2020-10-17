@@ -1,7 +1,3 @@
-let s:hidden_sep = "|||"
-
-echohl None
-
 function! GetTree()
 
   let buffer_numbers = map(filter(copy(getbufinfo()), 'v:val.listed'), 'v:val.bufnr')
@@ -84,9 +80,9 @@ function! GetLinesHelper(tree, lines, offset, vlines, fill)
     else
 
       if a:fill
-        call add(a:lines, FillWhitespace(a:offset, a:vlines) . pipe . s:hidden_sep . key . g:buffertree_arrow . value)
+        call add(a:lines, FillWhitespace(a:offset, a:vlines) . pipe . key . " ⇒ " . value)
       else
-        call add(a:lines, FillWhitespace(a:offset, a:vlines[:-1]) . pipe . s:hidden_sep . key . g:buffertree_arrow . value)
+        call add(a:lines, FillWhitespace(a:offset, a:vlines[:-1]) . pipe . key . " ⇒ " . value)
       endif
 
     endif
@@ -124,25 +120,8 @@ function! CompressTree(tree)
 
 endfunction
 
-function! RenderTree(tree)
-
-  let lines = GetLines(a:tree)
-
-  for line in lines
-    if stridx(line, s:hidden_sep) != -1
-      let sections = split(line, s:hidden_sep)
-      echo sections[0]
-      echohl BufferTreeFile
-      echon sections[1]
-      echohl None
-    else
-      echo line
-
-    endif
-  endfor
-endfunction
-
 function! tree#BufferTree()
-  let tree = GetTree(buffer_numbers)
-  call RenderTree(tree)
+  let tree = GetTree()
+  let lines = GetLines(tree)
+  return lines
 endfunction

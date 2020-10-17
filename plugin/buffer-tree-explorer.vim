@@ -10,4 +10,4 @@ if !exists('g:buffertree_arrow')
     let g:buffertree_arrow = " ⇒ "
 endif
 
-command! BufferTree :call tree#BufferTree()
+command! Tree :call explorer#Explore()
