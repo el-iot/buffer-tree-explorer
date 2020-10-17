@@ -25,33 +25,28 @@ I recently wrote a vim-plugin (<a href='https://github.com/el-iot/buffer-tree'>b
 Given a list of buffers,
 ```
 :buffers
-  1  h   "~/.config/nvim/init.vim"      line 234
- 22  h   "~/.config/nvim/demo.txt"      line 1
- 23  h   "plugin/tree.py"               line 27
- 25  h   "~/.config/nvim/autoload/plug.vim" line 563
- 27 #h   "plugin/buffer-tree.vim"       line 91
- 28 %a   "README.md"                    line 35
+  2  h   "~/.config/nvim/plugged/buffer-tree-explorer/autoload/explorer.vim" line 47
+  3  h   "~/.config/nvim/plugged/buffer-tree-explorer/autoload/tree.vim" line 65
+  4  h   "~/.config/nvim/plugged/buffer-tree-explorer/autoload/buffer.vim" line 22
+ 15  h   "~/.config/nvim/plugged/buffer-tree-explorer/README.md" line 57
+ 16 #h   "~/personal/haskell/h99.hs"    line 2
+ 17 %a   "manifest.json"                line 12
 ```
 
 <code>BufferTreeExplorer</code> will create a buffer with an ascii-tree that can be used to view the existing buffers. Note that this tree cannot be used to open *new* files in new vim-buffers.
 
 ```
-:BufferTree
-└─ home
-   └─ el
-      ├─ personal
-      │  └─ vim
-      │     └─ buffer-tree
-      │        ├─ README.md ⇒ 28
-      │        └─ plugin
-      │           ├─ tree.py ⇒ 23
-      │           └─ buffer-tree.vim ⇒ 27
-      └─ .config
-         └─ nvim
-            ├─ demo.txt ⇒ 22
-            ├─ autoload
-            │  └─ plug.vim ⇒ 25
-            └─ init.vim ⇒ 1
+:Tree
+└─ home/el
+   ├─ .config/nvim/plugged/buffer-tree-explorer
+   │  ├─ README.md ⇒ 15
+   │  └─ autoload
+   │     ├─ buffer.vim ⇒ 4
+   │     ├─ tree.vim ⇒ 3
+   │     └─ explorer.vim ⇒ 2
+   └─ personal
+      ├─ site-blocker/manifest.json ⇒ 17
+      └─ haskell/h99.hs ⇒ 16
 ```
 
 Note that the numbers after the arrow next to each file represent the buffer numbers of each file.

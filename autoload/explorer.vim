@@ -44,4 +44,11 @@ function! explorer#Explore()
   nnoremap <buffer> <silent> <CR> :call PressedEnter()<cr>
   nnoremap <buffer> <silent> k :call ScrollUp()<cr>
   nnoremap <buffer> <silent> j :call ScrollDown()<cr>
+
+  augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+  augroup END
+
 endfunction
