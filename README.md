@@ -67,3 +67,5 @@ Note that the numbers after the arrow next to each file represent the buffer num
 
 <h2>Installation</h2>
 <h2>Contributing</h2>
+<h2>To-do</h2>
+- highlight current buffer(s)
