@@ -1,6 +1,6 @@
 function! PressedEnter()
   let line = getline('.')
-  let file_regex = '\v^(:?├|─|└|│|\s)+(\w|\.|\/|-)+ ⇒ (\d+)$'
+  let file_regex = '\v^(:?├|─|└|│|\s)+◎*\s*(\w|\.|\/|-)+ ⇒ (\d+)$'
   let match = matchlist(line, file_regex)
 
   if len(match) > 0

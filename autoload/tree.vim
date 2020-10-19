@@ -48,7 +48,7 @@ function! FillWhitespace(n, lines)
 
 endfunction
 
-function! GetLinesHelper(tree, lines, offset, vlines, fill)
+function! GetLinesHelper(tree, lines, offset, vlines, fill, open_windows)
 
   let items = items(a:tree)
 
@@ -72,17 +72,23 @@ function! GetLinesHelper(tree, lines, offset, vlines, fill)
 
       call add(a:lines, FillWhitespace(a:offset, a:vlines) . pipe . key)
       if last == 1
-        call GetLinesHelper(value, a:lines, a:offset + 3, a:vlines, last)
+        call GetLinesHelper(value, a:lines, a:offset + 3, a:vlines, last, a:open_windows)
       else
-        call GetLinesHelper(value, a:lines, a:offset + 3, a:vlines + [a:offset], last)
+        call GetLinesHelper(value, a:lines, a:offset + 3, a:vlines + [a:offset], last, a:open_windows)
       endif
 
     else
 
-      if a:fill
-        call add(a:lines, FillWhitespace(a:offset, a:vlines) . pipe . key . " ⇒ " . value)
+      if index(a:open_windows, value) != -1
+        let written_indicator = '◎ '
       else
-        call add(a:lines, FillWhitespace(a:offset, a:vlines[:-1]) . pipe . key . " ⇒ " . value)
+        let written_indicator = ''
+      endif
+
+      if a:fill
+        call add(a:lines, FillWhitespace(a:offset, a:vlines) . pipe . written_indicator . key . " ⇒ " . value)
+      else
+        call add(a:lines, FillWhitespace(a:offset, a:vlines[:-1]) . pipe . written_indicator . key . " ⇒ " . value)
       endif
 
     endif
@@ -91,9 +97,9 @@ function! GetLinesHelper(tree, lines, offset, vlines, fill)
 
 endfunction
 
-function! GetLines(tree)
+function! GetLines(tree, open_windows)
   let lines = []
-  call GetLinesHelper(a:tree, lines, 0, [], 1)
+  call GetLinesHelper(a:tree, lines, 0, [], 1, a:open_windows)
   return lines
 endfunction
 
@@ -120,8 +126,17 @@ function! CompressTree(tree)
 
 endfunction
 
+function! GetOpenWindows()
+  let open_ids = []
+  for win_id in range(1,winnr('$'))
+    call add(open_ids, winbufnr(win_id))
+  endfor
+  return open_ids
+endfunction
+
 function! tree#BufferTree()
   let tree = GetTree()
-  let lines = GetLines(tree)
+  let open_windows = GetOpenWindows()
+  let lines = GetLines(tree, open_windows)
   return lines
 endfunction

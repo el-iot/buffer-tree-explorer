@@ -1,4 +1,6 @@
-" MakePageBuffer creates an empty buffer filled with line-separated 'contents'
+let s:file_regex = '\v^(:?├|─|└|│|\s)+◎*\s*(\w|\.|\/|-)+ ⇒ (\d+)$'
+
+"" MakePageBuffer creates an empty buffer filled with line-separated 'contents'
 function! buffer#MakeBuffer(contents, current_buffer_number)
 
   " make buffer and set attributes
@@ -6,7 +8,14 @@ function! buffer#MakeBuffer(contents, current_buffer_number)
   setlocal nobuflisted noswapfile wrap buftype=nofile bufhidden=delete nonu nornu nocursorline
   execute ":file BufferTree"
 
-  let file_regex = '\v^(:?├|─|└|│|\s)+(\w|\.|\/|-)+ ⇒ (\d+)$'
+  syntax match TreeWindowFile /\v◎ (\w|\.|\/|-)+ ⇒ (\d+)$/
+  syntax match TreeFile /\v(\w|\.|\/|-)+ ⇒ (\d+)$/
+  syntax match TreeBranch /\v(├|─|└|│)/
+
+  highlight TreeFile ctermfg=yellow
+  highlight TreeWindowFile cterm=bold ctermfg=yellow
+  highlight TreeBranch ctermfg=green
+
   let allowed_lines = []
   let bufferline = -1
 
@@ -16,7 +25,7 @@ function! buffer#MakeBuffer(contents, current_buffer_number)
     if line != ''
 
       call setline(line_idx, line)
-      let matches = matchlist(line, file_regex)
+      let matches = matchlist(line, s:file_regex)
 
       if len(matches) > 0
         if matches[3] == a:current_buffer_number
@@ -38,7 +47,6 @@ endfunction
 " RefreshPageBuffer
 function! buffer#RefreshBuffer(contents, current_buffer_number)
 
-  let file_regex = '\v^(:?├|─|└|│|\s)+(\w|\.|\/|-)+ ⇒ (\d+)$'
   let allowed_lines = []
   let bufferline = -1
 
@@ -49,7 +57,7 @@ function! buffer#RefreshBuffer(contents, current_buffer_number)
     if line != ''
 
       call setline(line_idx, line)
-      let matches = matchlist(line, file_regex)
+      let matches = matchlist(line, s:file_regex)
 
       if len(matches) > 0
         if matches[3] == a:current_buffer_number
