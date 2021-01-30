@@ -68,6 +68,17 @@ Given a list of buffers,
 Note that the numbers after the arrow next to each file represent the buffer numbers of each file.
 
 <h2>Installation</h2>
-<h2>Contributing</h2>
+
+Add this line to your <code>init.vim</code> / <code>.vimrc</code> file (though you may need to modify it slightly if you use a different plugin manager.
+
+```
+Plug 'el-iot/buffer-tree-explorer.vim'
+```
+
+and run
+
+```
+:PlugInstall
+```
 <h2>To-do</h2>
 - add delete key
