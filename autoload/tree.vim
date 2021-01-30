@@ -82,7 +82,7 @@ function! GetLinesHelper(tree, lines, offset, vlines, fill, open_windows)
       if index(a:open_windows, value) != -1
         let written_indicator = '◎ '
       else
-        let written_indicator = ''
+        let written_indicator = '• '
       endif
 
       if a:fill

@@ -1,13 +1,31 @@
 function! PressedEnter()
-  let line = getline('.')
-  let file_regex = '\v^(:?├|─|└|│|\s)+◎*\s*(\w|\.|\/|-)+ ⇒ (\d+)$'
-  let match = matchlist(line, file_regex)
+  let current_line_contents = getline('.')
+  let file_regex            = '\v^(:?├|─|└|│|\s)+[◎•] *(\w|\.|\/|-)+ ⇒ (\d+)$'
+  let current_file_regex    = '\v^(:?├|─|└|│|\s)+◎ *(\w|\.|\/|-)+ ⇒ (\d+)$'
+  let match                 = matchlist(current_line_contents, file_regex)
 
-  if len(match) > 0
-    let buffer_number = match[3]
-    execute "wincmd p"
-    execute "b" . buffer_number
+  if len(match) == 0
+    return
   endif
+
+  setlocal modifiable
+
+  for allowed_line in b:allowed_lines
+
+    let line_contents = getline(allowed_line)
+    if len(matchlist(line_contents, current_file_regex)) > 0
+      call setline(allowed_line, substitute(line_contents, '◎', '•', ''))
+      break
+    endif
+  endfor
+
+  let destination_line_number = getcurpos()[1]
+  call setline(destination_line_number, substitute(current_line_contents, '•', '◎',''))
+
+  setlocal nomodifiable
+
+  execute "wincmd p"
+  execute "b" . match[3]
 endfunction
 
 function! ScrollUp()

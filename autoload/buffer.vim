@@ -1,4 +1,4 @@
-let s:file_regex = '\v^(:?├|─|└|│|\s)+◎*\s*(\w|\.|\/|-)+ ⇒ (\d+)$'
+let s:file_regex = '\v^(:?├|─|└|│|\s)+[◎•]*\s*(\w|\.|\/|-)+ ⇒ (\d+)$'
 
 " MakePageBuffer creates an empty buffer filled with line-separated 'contents'
 function! buffer#MakeBuffer(contents, current_buffer_number)
@@ -10,7 +10,7 @@ function! buffer#MakeBuffer(contents, current_buffer_number)
 
   syntax match TreeWindowFile /\v◎ (\w|\.|\/|-)+ ⇒ (\d+)$/
   syntax match TreePath /\v(\w|\.|\/|-)+$/
-  syntax match TreeFile /\v(\w|\.|\/|-)+ ⇒ (\d+)$/
+  syntax match TreeFile /\v•(\w|\.|\/|-)+ ⇒ (\d+)$/
   syntax match TreeBranch /\v(├|─|└|│)/
 
   highlight TreePath ctermfg=242
