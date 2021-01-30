@@ -39,12 +39,13 @@ I recently wrote a vim-plugin (<a href='https://github.com/el-iot/buffer-tree'>b
 Given a list of buffers,
 ```
 :buffers
-  2  h   "~/.config/nvim/plugged/buffer-tree-explorer/autoload/explorer.vim" line 47
-  3  h   "~/.config/nvim/plugged/buffer-tree-explorer/autoload/tree.vim" line 65
-  4  h   "~/.config/nvim/plugged/buffer-tree-explorer/autoload/buffer.vim" line 22
- 15  h   "~/.config/nvim/plugged/buffer-tree-explorer/README.md" line 57
- 16 #h   "~/personal/haskell/h99.hs"    line 2
- 17 %a   "manifest.json"                line 12
+ 22  h   "~/media/videos/video.html"    line 4
+ 26  h   "autoload/explorer.vim"        line 14
+ 27  h   "autoload/tree.vim"            line 1
+ 29  h   "autoload/buffer.vim"          line 15
+ 74  h   "~/personal/machine-learning/btc/data.csv" line 3141
+ 75 #h   "~/personal/advent-of-code/2020/day_1.py" line 1
+ 76 %a   "README.md"                    line 72
 ```
 
 <code>BufferTreeExplorer</code> will create a buffer with an ascii-tree that can be used to view the existing buffers. Note that this tree cannot be used to open *new* files in new vim-buffers.
@@ -53,14 +54,15 @@ Given a list of buffers,
 :Tree
 └─ home/el
    ├─ .config/nvim/plugged/buffer-tree-explorer
-   │  ├─ README.md ⇒ 15
+   │  ├─ ◎ README.md ⇒ 76
    │  └─ autoload
-   │     ├─ buffer.vim ⇒ 4
-   │     ├─ tree.vim ⇒ 3
-   │     └─ explorer.vim ⇒ 2
-   └─ personal
-      ├─ site-blocker/manifest.json ⇒ 17
-      └─ haskell/h99.hs ⇒ 16
+   │     ├─ • buffer.vim ⇒ 29
+   │     ├─ • tree.vim ⇒ 27
+   │     └─ • explorer.vim ⇒ 26
+   ├─ personal
+   │  ├─ • machine-learning/btc/data.csv ⇒ 74
+   │  └─ • advent-of-code/2020/day_1.py ⇒ 75
+   └─ • media/videos/video.html ⇒ 22
 ```
 
 Note that the numbers after the arrow next to each file represent the buffer numbers of each file.
@@ -69,4 +71,3 @@ Note that the numbers after the arrow next to each file represent the buffer num
 <h2>Contributing</h2>
 <h2>To-do</h2>
 - add delete key
-- refresh on winleave
