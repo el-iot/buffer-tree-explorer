@@ -68,6 +68,7 @@ Given a list of buffers,
 Note that the numbers after the arrow next to each file represent the buffer numbers of each file.
 
 Within this buffer you can use the <code>k</code> and <code>j</code> keys to scroll up and down respectively through the available buffers, as well as press <code>\<CR\></code> to enter that buffer.
+
 <h2>Installation</h2>
 
 Add this line to your <code>init.vim</code> / <code>.vimrc</code> file (though you may need to modify it slightly if you use a different plugin manager.
@@ -81,5 +82,8 @@ and run
 ```
 :PlugInstall
 ```
+<h2>Usage</h2>
+<img src="https://github.com/el-iot/buffer-tree-explorer/blob/master/assets/demo.gif" width="800" height="450" />
+
 <h2>To-do</h2>
 - add delete key
