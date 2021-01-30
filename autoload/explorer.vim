@@ -19,8 +19,10 @@ function! ScrollDown()
 endfunction
 
 function! ScrollHelper(delta)
+
   let pos = getcurpos()[1]
   let idx = 0
+
   for allowed_line in b:allowed_lines
     if allowed_line == pos
       call cursor(b:allowed_lines[(idx + a:delta) % len(b:allowed_lines)], 0)
@@ -28,25 +30,20 @@ function! ScrollHelper(delta)
     endif
     let idx = idx + 1
   endfor
+
+  call cursor(b:allowed_lines[0], 0)
+
 endfunction
 
 function! RefreshBuffer()
-
-  let s:previous_window = winnr()
-  let previous_buffer = bufnr()
-
-  let tree = tree#BufferTree()
-  let result = buffer#RefreshBuffer(tree, previous_buffer)
+  let result = buffer#RefreshBuffer()
   let b:allowed_lines = result[1]
-
   call cursor(result[0], 0)
 endfunction
 
 function! explorer#Explore()
 
-  let s:previous_window = winnr()
   let previous_buffer = bufnr()
-
   let tree = tree#BufferTree()
   let result = buffer#MakeBuffer(tree, previous_buffer)
 
@@ -59,9 +56,8 @@ function! explorer#Explore()
 
   augroup CursorLine
     au!
-    au VimEnter,WinEnter,BufWinEnter BufferTree setlocal cursorline
     au VimEnter,WinEnter,BufWinEnter BufferTree call RefreshBuffer()
-    au WinLeave BufferTree setlocal nocursorline
+    au VimEnter,WinEnter,BufWinEnter [^BufferTree] call RefreshBuffer()
   augroup END
 
 endfunction
