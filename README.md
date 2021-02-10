@@ -64,3 +64,51 @@ and run
 ```
 <h2>Usage</h2>
 Use the <code>:Tree</code> command to render your buffers as an ascii-tree in a separate "tree buffer". While navigating within this buffer you can use the <code>j</code> and <code>k</code> keys to scroll up and down through the available buffers, <code>Enter</code> to open this buffer and <code>delete</code> to delete a given buffer a refresh your tree.
+
+<h2>Configuration</h2>
+
+<h3> Compressing the BufferTree </h3>
+Sometimes your buffers will be very sparse and the buffer-tree will look a little large for so few files.
+As an example,
+
+```
+└─ home
+   └─ el
+      ├─ personal
+      │  ├─ vim
+      │  │  └─ buffer-tree
+      │  │     ├─ README.md ⇒ 2
+      │  │     └─ plugin
+      │  │        └─ buffer-tree.vim ⇒ 3
+      │  └─ repos
+      │     └─ themerator
+      │        └─ themerator.py ⇒ 14
+      └─ .config
+         └─ nvim
+            ├─ plugged
+            │  ├─ buffer-tree
+            │  │  └─ plugin
+            │  │     └─ buffer-tree.vim ⇒ 4
+            │  └─ buffer-minimalism
+            │     └─ plugin
+            │        └─ buffer-minimalism.vim ⇒ 10
+            └─ init.vim ⇒ 1
+```
+
+This is a little inconvenient, as a lot of vertical space is taken up by directories with no buffers.
+You can set <code>g:buffer_tree_explorer_compress</code> to 1 to "compress" your trees where possible. In this case, the tree above would look like
+
+```
+└─ home/el
+   ├─ .config/nvim
+   │  ├─ plugged
+   │  │  ├─ buffer-minimalism/plugin/buffer-minimalism.vim ⇒ 10
+   │  │  └─ buffer-tree/plugin/buffer-tree.vim ⇒ 4
+   │  └─ init.vim ⇒ 1
+   └─ personal
+      ├─ repos/themerator/themerator.py ⇒ 14
+      └─ vim/buffer-tree
+         ├─ README.md ⇒ 2
+         └─ plugin/buffer-tree.vim ⇒ 3
+
+```
