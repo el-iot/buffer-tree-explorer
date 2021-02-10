@@ -54,7 +54,7 @@ Within this buffer you can use the <code>k</code> and <code>j</code> keys to scr
 Add this line to your <code>init.vim</code> / <code>.vimrc</code> file (though you may need to modify it slightly if you use a different plugin manager.
 
 ```
-Plug 'el-iot/buffer-tree-explorer.vim'
+Plug 'el-iot/buffer-tree-explorer'
 ```
 
 and run
