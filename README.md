@@ -63,4 +63,4 @@ and run
 :PlugInstall
 ```
 <h2>Usage</h2>
-Use the <code>:Tree</code> command to render your buffers as an ascii-tree in a separate "tree buffer". While navigating within this buffer you can use the <code>j</code> and <code>k</code> keys to scroll up and down through the available buffers, <code>\<CR\> (enter)</code> to open this buffer and <code>delete</code> to delete a given buffer a refresh your tree.
+Use the <code>:Tree</code> command to render your buffers as an ascii-tree in a separate "tree buffer". While navigating within this buffer you can use the <code>j</code> and <code>k</code> keys to scroll up and down through the available buffers, <code>Enter</code> to open this buffer and <code>delete</code> to delete a given buffer a refresh your tree.
