@@ -33,6 +33,8 @@
 
 A vim-plugin for exploring vim-buffers, rendered as an ascii-tree. An adaptation / extension of the <a href='https://github.com/el-iot/buffer-tree'>buffer-tree</a> vim plugin.
 
+<img src="https://github.com/el-iot/buffer-tree-explorer/blob/master/assets/demo.gif" width="800" height="450" />
+
 <h2>Why?</h2>
 I recently wrote a vim-plugin (<a href='https://github.com/el-iot/buffer-tree'>buffer-tree</a>) that renders your vim-buffers as an ascii tree. While I liked the plugin, I found its lack of persistence made it difficult to use (it was only rendered in the echo area). This plugin will instead create a persistent buffer which displays your existing buffers and makes navigating easier.
 
@@ -83,7 +85,4 @@ and run
 :PlugInstall
 ```
 <h2>Usage</h2>
-<img src="https://github.com/el-iot/buffer-tree-explorer/blob/master/assets/demo.gif" width="800" height="450" />
-
-<h2>To-do</h2>
-- add delete key
+Use the <code>:Tree</code> command to render your buffers as an ascii-tree in a separate "tree buffer". While navigating within this buffer you can use the <code>j</code> and <code>k</code> keys to scroll up and down through the available buffers, <code>\<CR\> (enter)</code> to open this buffer and <code>delete</code> to delete a given buffer a refresh your tree.
