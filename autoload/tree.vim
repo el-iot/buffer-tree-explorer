@@ -25,7 +25,7 @@ function! GetTree()
     endfor
   endfor
 
-  if g:buffertree_compress == 1
+  if g:buffer_tree_explorer_compress == 1
     let tree = CompressTree(tree)
   endif
 

@@ -1,5 +1,5 @@
-if !exists('g:buffertree_compress')
-    let g:buffertree_compress = 0
+if !exists('g:buffer_tree_explorer_compress')
+    let g:buffer_tree_explorer_compress = 1
 endif
 
 if !exists('g:buffertree_path_sep')
