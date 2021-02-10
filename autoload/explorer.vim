@@ -28,6 +28,14 @@ function! PressedEnter()
   execute "b" . match[3]
 endfunction
 
+function! PressedDelete()
+  let current_line_contents = getline('.')
+  let file_regex            = '\v^(:?├|─|└|│|\s)+[◎•] *(\w|\.|\/|-)+ ⇒ (\d+)$'
+  let match                 = matchlist(current_line_contents, file_regex)
+  execute "bd" . match[3]
+  call RefreshBuffer()
+endfunction
+
 function! ScrollUp()
   call ScrollHelper(-1)
 endfunction
@@ -71,6 +79,7 @@ function! explorer#Explore()
   nnoremap <buffer> <silent> <CR> :call PressedEnter()<cr>
   nnoremap <buffer> <silent> k :call ScrollUp()<cr>
   nnoremap <buffer> <silent> j :call ScrollDown()<cr>
+  nnoremap <buffer> <silent> d :call PressedDelete()<cr>
 
   augroup CursorLine
     au!

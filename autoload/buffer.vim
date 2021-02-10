@@ -56,6 +56,10 @@ function! buffer#RefreshBuffer()
   let current_buffer_number = bufnr()
 
   setlocal modifiable
+
+  " delete the old buffer contents
+  call deletebufline(current_buffer_number, 1, '$')
+
   " fill the buffer with contents
   let line_idx = 1
   for line in contents
@@ -75,7 +79,6 @@ function! buffer#RefreshBuffer()
     endif
   endfor
 
-  " only make non-modifiable after everything has already been written
   setlocal nomodifiable
   return [bufferline, allowed_lines]
 
