@@ -112,3 +112,7 @@ You can set <code>g:buffer_tree_explorer_compress</code> to 1 to "compress" your
          └─ plugin/buffer-tree.vim ⇒ 3
 
 ```
+
+<h3> Closing the tree on <code>\<enter\></code></h3>
+
+By default, You can configure buffertree-explorer to close on selecting a buffer (with <code>\<enter\></code>) by setting the <code>g:buffertree_close_on_enter</code> to 1.

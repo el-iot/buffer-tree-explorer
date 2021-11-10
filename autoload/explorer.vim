@@ -24,6 +24,10 @@ function! PressedEnter()
 
   setlocal nomodifiable
 
+  if g:buffertree_close_on_enter == 1
+    execute "bd"
+  endif
+
   execute "wincmd p"
   execute "b" . match[3]
 endfunction
