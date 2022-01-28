@@ -32,12 +32,26 @@ function! PressedEnter()
   execute "b" . match[3]
 endfunction
 
+function! GetLineAbove()
+  let pos = getcurpos()[1]
+  let idx = 0
+  for allowed_line in b:allowed_lines
+    if allowed_line == pos
+      let new_pos = b:allowed_lines[(idx - 1) % len(b:allowed_lines)]
+      return new_pos
+    endif
+    let idx = idx + 1
+  endfor
+endfunction
+
 function! PressedDelete()
   let current_line_contents = getline('.')
   let file_regex            = '\v^(:?├|─|└|│|\s)+[◎•] *(\w|\.|\/|-)+ ⇒ (\d+)$'
   let match                 = matchlist(current_line_contents, file_regex)
+  let new_pos = GetLineAbove()
   execute "bd" . match[3]
   call RefreshBuffer()
+  call cursor(new_pos, 0)
 endfunction
 
 function! ScrollUp()
